@@ -1,12 +1,10 @@
-const Itemout = require("../models/Itemout");
-const Item = require("../models/Item");
+const Outcomein = require("../models/Outcomein");
 
 module.exports = {
   index: (req, res) => {
     if (req.user.role == "admin" || req.user.role == "kasir") {
-      Itemout.find()
-        .populate("item")
-        .then(itemout => res.json(itemout))
+      Outcomein.find()
+        .then(outcomein => res.json(outcomein))
         .catch(err => console.log(err));
     } else {
       res.sendStatus(403);
@@ -14,9 +12,8 @@ module.exports = {
   },
   show: (req, res) => {
     if (req.user.role == "admin" || req.user.role == "kasir") {
-      Itemout.findById(req.params.id)
-        .populate("item")
-        .then(itemout => res.json(itemout))
+      Outcomein.findById(req.params.id)
+        .then(outcomein => res.json(outcomein))
         .catch(err => console.log(err));
     } else {
       res.sendStatus(403);
@@ -24,12 +21,12 @@ module.exports = {
   },
   update: (req, res) => {
     if (req.user.role == "admin" || req.user.role == "kasir") {
-      Itemout.findOneAndUpdate(
+      Outcomein.findOneAndUpdate(
         { _id: req.params.id },
         { $set: req.body },
         { new: true }
       )
-        .then(itemout => res.json(itemout))
+        .then(outcomein => res.json(outcomein))
         .catch(err => console.log(err));
     } else {
       res.sendStatus(403);
@@ -37,8 +34,10 @@ module.exports = {
   },
   store: (req, res) => {
     if (req.user.role == "admin" || req.user.role == "kasir") {
-      Itemout.create({ ...req.body })
-        .then(itemout => res.json(itemout))
+      let newOutcomein = { ...req.body };
+      newOutcomein.user = req.user._id;
+      Outcomein.create(newOutcomein)
+        .then(outcomein => res.json(outcomein))
         .catch(err => console.log(err));
     } else {
       res.sendStatus(403);
@@ -46,8 +45,8 @@ module.exports = {
   },
   destroy: (req, res) => {
     if (req.user.role == "admin" || req.user.role == "kasir") {
-      Itemout.findOneAndDelete({ _id: req.params.id })
-        .then(itemout => res.json(itemout))
+      Outcomein.findOneAndDelete({ _id: req.params.id })
+        .then(outcomein => res.json(outcomein))
         .catch(err => console.log(err));
     } else {
       res.sendStatus(403);

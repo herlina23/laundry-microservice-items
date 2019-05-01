@@ -1,10 +1,12 @@
 const Outcome = require("../models/Outcome");
+const Outcomein = require("../models/Outcomein");
 
 module.exports = {
   index: (req, res) => {
     if (req.user.role == "admin" || req.user.role == "kasir") {
       Outcome.find()
         .populate("user")
+        .populate("outcomein")
         .then(outcome => res.json(outcome))
         .catch(err => console.log(err));
     } else {
@@ -15,6 +17,7 @@ module.exports = {
     if (req.user.role == "admin" || req.user.role == "kasir") {
       Outcome.findById(req.params.id)
         .populate("user")
+        .populate("outcomein")
         .then(outcome => res.json(outcome))
         .catch(err => console.log(err));
     } else {

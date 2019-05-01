@@ -1,9 +1,11 @@
 const Itemin = require("../models/Itemin");
+const Item = require("../models/Item");
 
 module.exports = {
   index: (req, res) => {
     if (req.user.role == "admin" || req.user.role == "kasir") {
       Itemin.find()
+        .populate("item")
         .then(itemin => res.json(itemin))
         .catch(err => console.log(err));
     } else {
@@ -13,6 +15,7 @@ module.exports = {
   show: (req, res) => {
     if (req.user.role == "admin" || req.user.role == "kasir") {
       Itemin.findById(req.params.id)
+        .populate("item")
         .then(itemin => res.json(itemin))
         .catch(err => console.log(err));
     } else {

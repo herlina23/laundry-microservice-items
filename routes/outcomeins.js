@@ -9,7 +9,7 @@ const {
   update,
   search,
   destroy
-} = require("../controllers/outcome");
+} = require("../controllers/outcomein");
 
 router.use(verifyToken);
 router.get("/", index);
