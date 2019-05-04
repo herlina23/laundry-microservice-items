@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 // Itemin Schema
 const iteminSchema = mongoose.Schema({
-  item_name: {
+  item: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Item",
     required: true
