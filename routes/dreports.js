@@ -10,9 +10,9 @@ const {
 } = require("../controllers/dreport");
 
 router.use(verifyToken);
-router.get("/:id", showItem);
-router.get("/:id", showItemin);
-router.get("/:id", showItemout);
-router.get("/:id", showOutcome);
+router.get("/", showItem);
+router.get("/", showItemin);
+router.get("/", showItemout);
+router.get("/", showOutcome);
 
 module.exports = router;

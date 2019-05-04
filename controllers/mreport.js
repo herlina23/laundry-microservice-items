@@ -8,7 +8,7 @@ const Outcome = require("../models/Outcome");
 module.exports = {
   showItemin: (req, res) => {
     if (req.user.role == "admin") {
-      Itemin.findById(req.params.id)
+      Itemin.find()
         // .populate("item")
         .then(mreport => res.json(mreport))
         .catch(err => console.log(err));
@@ -18,7 +18,7 @@ module.exports = {
   },
   showItem: (req, res) => {
     if (req.user.role == "admin") {
-      Item.findById(req.params.id)
+      Item.find()
         .then(mreport => res.json(mreport))
         .catch(err => console.log(err));
     } else {
@@ -27,7 +27,7 @@ module.exports = {
   },
   showItemout: (req, res) => {
     if (req.user.role == "admin") {
-      Itemout.findById(req.params.id)
+      Itemout.find()
         .then(mreport => res.json(mreport))
         .catch(err => console.log(err));
     } else {
@@ -36,7 +36,7 @@ module.exports = {
   },
   showOutcome: (req, res) => {
     if (req.user.role == "admin") {
-      Outcome.findById(req.params.id)
+      Outcome.find()
         .then(mreport => res.json(mreport))
         .catch(err => console.log(err));
     } else {
