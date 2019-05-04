@@ -2,6 +2,7 @@ const Itemin = require("../models/Itemin");
 const Item = require("../models/Item");
 const Itemout = require("../models/Itemout");
 const Outcome = require("../models/Outcome");
+const axios = require("axios");
 
 //mreport ==> monthly report
 
@@ -9,7 +10,7 @@ module.exports = {
   showItemin: (req, res) => {
     if (req.user.role == "admin") {
       Itemin.find()
-        // .populate("item")
+        .populate("item")
         .then(mreport => res.json(mreport))
         .catch(err => console.log(err));
     } else {
@@ -28,6 +29,7 @@ module.exports = {
   showItemout: (req, res) => {
     if (req.user.role == "admin") {
       Itemout.find()
+        .populate("item")
         .then(mreport => res.json(mreport))
         .catch(err => console.log(err));
     } else {
@@ -37,6 +39,7 @@ module.exports = {
   showOutcome: (req, res) => {
     if (req.user.role == "admin") {
       Outcome.find()
+        .populate("outcomein")
         .then(mreport => res.json(mreport))
         .catch(err => console.log(err));
     } else {
