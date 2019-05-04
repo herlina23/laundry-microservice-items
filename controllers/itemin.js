@@ -37,8 +37,15 @@ module.exports = {
   },
   store: (req, res) => {
     if (req.user.role == "admin" || req.user.role == "kasir") {
+      //from this
       Itemin.create({ ...req.body })
-        .then(itemin => res.json(itemin))
+        .then(itemIn => {
+          Item.findById(req.body.item_name).then(item => {
+            item.stock = item.stock + req.body.qty;
+            item.save().then(item => res.json(itemIn));
+            // to this
+          });
+        })
         .catch(err => console.log(err));
     } else {
       res.sendStatus(403);

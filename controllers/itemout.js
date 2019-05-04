@@ -37,8 +37,25 @@ module.exports = {
   },
   store: (req, res) => {
     if (req.user.role == "admin" || req.user.role == "kasir") {
+      // Itemout.create({ ...req.body })
+      //   .then(itemOut => {
+      //     Item.findById(req.body.item_name)
+      //       .then(item => {
+      //         item.stock = item.stock - req.body.qty
+      //         item.save()
+      //         .then(item => res.json(itemOut))
+      //       })
+      //   })
+
       Itemout.create({ ...req.body })
-        .then(itemout => res.json(itemout))
+        .then(itemOut => {
+          Item.findById(req.body.item_name).then(item => {
+            item.stock = item.stock - req.body.qty;
+            item.save().then(item => res.json(itemOut));
+            // to this
+          });
+        })
+
         .catch(err => console.log(err));
     } else {
       res.sendStatus(403);
