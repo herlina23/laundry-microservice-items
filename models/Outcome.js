@@ -11,6 +11,12 @@ const outcomeSchema = mongoose.Schema({
     type: Date,
     default: Date.now()
   },
+  unit: {
+    type: String
+  },
+  qty: {
+    type: Number
+  },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
