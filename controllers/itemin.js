@@ -40,7 +40,7 @@ module.exports = {
       //from this
       Itemin.create({ ...req.body })
         .then(itemIn => {
-          Item.findById(req.body.item_name).then(item => {
+          Item.findById(req.body.item).then(item => {
             item.stock = item.stock + req.body.qty;
             item.save().then(item => res.json(itemIn));
             // to this
