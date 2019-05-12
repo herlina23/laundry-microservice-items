@@ -37,24 +37,30 @@ module.exports = {
   },
   store: (req, res) => {
     if (req.user.role == "admin" || req.user.role == "kasir") {
-      // Itemout.create({ ...req.body })
-      //   .then(itemOut => {
-      //     Item.findById(req.body.item_name)
-      //       .then(item => {
-      //         item.stock = item.stock - req.body.qty
-      //         item.save()
-      //         .then(item => res.json(itemOut))
-      //       })
-      //   })
+      let stock, stockout
+      Item.findById(req.body.item).then(item => {
+        stock = item.stock
+        stockout = req.body.qty
+        if (stock < stockout) {
+          res.sendStatus(400)
+        } else {
+          ItemOut.create({...req.body})
+            .then(itemOut => {
+              item.stock = stock - stockout
+              item.save()
+              .then(() => res.json(itemOut))
+            })
+        }
+      })
 
-      Itemout.create({ ...req.body })
-        .then(itemOut => {
-          Item.findById(req.body.item).then(item => {
-            item.stock = item.stock - req.body.qty;
-            item.save().then(item => res.json(itemOut));
-            // to this
-          });
-        })
+//       Itemout.create({ ...req.body })
+//         .then(itemOut => {
+//           Item.findById(req.body.item).then(item => {
+//             item.stock = item.stock - req.body.qty;
+//             item.save().then(item => res.json(itemOut));
+//             // to this
+//           });
+//         })
 
         .catch(err => console.log(err));
     } else {
