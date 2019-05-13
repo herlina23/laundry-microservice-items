@@ -44,11 +44,11 @@ module.exports = {
         if (stock < stockout) {
           res.sendStatus(400)
         } else {
-          ItemOut.create({...req.body})
-            .then(itemOut => {
+          Itemout.create({...req.body})
+            .then(itemout => {
               item.stock = stock - stockout
               item.save()
-              .then(() => res.json(itemOut))
+              .then(() => res.json(itemout))
             })
         }
       })
