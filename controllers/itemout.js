@@ -37,30 +37,33 @@ module.exports = {
   },
   store: (req, res) => {
     if (req.user.role == "admin" || req.user.role == "kasir") {
-      let stock, stockout
-      Item.findById(req.body.item).then(item => {
-        stock = item.stock
-        stockout = req.body.qty
-        if (stock < stockout) {
-          res.sendStatus(400)
-        } else {
-          Itemout.create({...req.body})
-            .then(itemout => {
-              item.stock = stock - stockout
-              item.save()
-              .then(() => res.json(itemout))
-            })
-        }
-      })
+      let stock, stockout;
+      Item.findById(req.body.item)
+        .then(item => {
+          stock = item.stock;
+          stockout = req.body.qty;
+          if (stock < stockout) {
+            // res.sendStatus(400)
+            res.send(
+              "Stok Kurang dari nilai yang dimasukkan, jumlah stok saat ini: ",
+              stock
+            );
+          } else {
+            Itemout.create({ ...req.body }).then(itemout => {
+              item.stock = stock - stockout;
+              item.save().then(() => res.json(itemout));
+            });
+          }
+        })
 
-//       Itemout.create({ ...req.body })
-//         .then(itemOut => {
-//           Item.findById(req.body.item).then(item => {
-//             item.stock = item.stock - req.body.qty;
-//             item.save().then(item => res.json(itemOut));
-//             // to this
-//           });
-//         })
+        //       Itemout.create({ ...req.body })
+        //         .then(itemOut => {
+        //           Item.findById(req.body.item).then(item => {
+        //             item.stock = item.stock - req.body.qty;
+        //             item.save().then(item => res.json(itemOut));
+        //             // to this
+        //           });
+        //         })
 
         .catch(err => console.log(err));
     } else {
