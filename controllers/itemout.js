@@ -44,17 +44,12 @@ module.exports = {
           stockout = req.body.qty;
           if (stock < stockout) {
             // res.sendStatus(400);
-            // res.send(
-            //   {
-            //     message:
-            //       "Stok Kurang dari jumlah yang diminta!, stok saat ini : "
-            //   },
-            //   stock
-            // );
-
-            res
-              .status(404)
-              .send({ success: false, error: { message: "No blah Found" } });
+            res.send(
+              {
+                message:
+                  "Stok Kurang dari jumlah yang diminta!, stok saat ini : "
+              } + stock
+            );
           } else {
             Itemout.create({ ...req.body }).then(itemout => {
               item.stock = stock - stockout;
