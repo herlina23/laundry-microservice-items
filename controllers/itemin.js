@@ -42,7 +42,8 @@ module.exports = {
         .then(itemIn => {
           Item.findById(req.body.item).then(item => {
             item.stock = item.stock + req.body.qty;
-            item.save().then(item => res.json(itemIn));
+            // item.save().then(item => res.json(itemIn));
+            item.save().then(item => res.json(itemin));
             // to this
           });
         })
