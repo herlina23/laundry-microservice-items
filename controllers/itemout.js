@@ -45,13 +45,7 @@ module.exports = {
           if (stock < stockout) {
             // res
             //   .sendStatus(400);
-            res
-              .sendStatus(200)
-              .json(
-                (error =
-                  "stok barang kurang dari nilai yang masukkan, jumlah stok: " +
-                  stock)
-              );
+            res.sendStatus(200);
           } else {
             Itemout.create({ ...req.body }).then(itemout => {
               item.stock = stock - stockout;
