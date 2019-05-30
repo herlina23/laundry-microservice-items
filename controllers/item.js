@@ -1,6 +1,11 @@
 const Item = require("../models/Item");
 
 module.exports = {
+  index2: (req, res) => {
+    Item.find()
+      .then(item => res.json(item))
+      .catch(err => console.log(err));
+  },
   index: (req, res) => {
     if (req.user.role == "admin" || req.user.role == "kasir") {
       Item.find()
