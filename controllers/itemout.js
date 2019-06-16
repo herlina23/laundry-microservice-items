@@ -43,7 +43,9 @@ module.exports = {
           stock = item.stock;
           stockout = req.body.qty;
           if (stock < stockout) {
-            res.sendStatus(400);
+            // res.sendStatus(400);
+
+            res.send("Hello World!");
 
             // res.status(200).json({
             //   error:
